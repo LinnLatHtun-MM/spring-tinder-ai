@@ -29,6 +29,9 @@ public class SpringAiTinderApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        //I want to be clear all conversations because of using AI when creating a branch of profiles.
+        profileRepository.deleteAll();
+        conversationRepository.deleteAll();
 
         Profile profile = new Profile(
                 "1",
@@ -41,8 +44,23 @@ public class SpringAiTinderApplication implements CommandLineRunner {
                 "foo.jpg",
                 "INTP"
         );
+
+        Profile profile1 = new Profile(
+                "2",
+                "Tun",
+                "Myat",
+                35,
+                "Myanmar",
+                Gender.FEMALE,
+                "Software programmer",
+                "foo.jpg",
+                "INTP"
+        );
+
         profileRepository.save(profile);
+        profileRepository.save(profile1);
         profileRepository.findAll().forEach(System.out::println);
+
 
         Conversation conversation = new Conversation(
                 "1",
