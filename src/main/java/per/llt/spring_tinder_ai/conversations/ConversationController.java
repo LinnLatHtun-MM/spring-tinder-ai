@@ -2,10 +2,7 @@ package per.llt.spring_tinder_ai.conversations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import per.llt.spring_tinder_ai.profiles.ProfileRepository;
 
@@ -22,13 +19,15 @@ public class ConversationController {
     @Autowired
     private ProfileRepository profileRepository;
 
+    /**
+     * We want a new conversation with someone but not sending message
+     **/
     @PostMapping("/conversations")
-    // I want a new conversation with someone but not sending message
     public Conversation createNewConversation(@RequestBody ConversationCreateRequest request) {
 
-        //before we do create conversation , we need to check the profile is existed or not
+        //Before we do create conversation , we need to check the profile is existed or not
         profileRepository.findById(request.profileId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to Find a Profile with " + request.profileId));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to Find a Profile with ID " + request.profileId));
 
         Conversation conversation = new Conversation(
                 UUID.randomUUID().toString(),
@@ -40,6 +39,14 @@ public class ConversationController {
         return conversation;
     }
 
+    /**
+     * Get the conversation with specific Id
+     **/
+    @GetMapping("/conversations/{conversationId}")
+    public Conversation getConversation(@PathVariable String conversationId) {
+        return conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to Find a Conversation with ID " + conversationId));
+    }
 
     /**
      * Sending message to specified profile with conversationId
