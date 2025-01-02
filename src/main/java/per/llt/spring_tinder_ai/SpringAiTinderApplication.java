@@ -1,5 +1,6 @@
 package per.llt.spring_tinder_ai;
 
+import org.springframework.ai.openai.OpenAiChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,9 @@ public class SpringAiTinderApplication implements CommandLineRunner {
 
     @Autowired
     private ConversationRepository conversationRepository;
+
+    @Autowired
+    private OpenAiChatClient openAiChatClient;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringAiTinderApplication.class, args);
