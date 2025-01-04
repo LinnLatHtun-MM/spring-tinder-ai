@@ -20,7 +20,7 @@ public class ConversationController {
     private ProfileRepository profileRepository;
 
     /**
-     * We want a new conversation with someone but not sending message
+     * 🌟We want a new conversation with someone but not sending message 🌟
      **/
     @PostMapping("/conversations")
     public Conversation createNewConversation(@RequestBody ConversationCreateRequest request) {
@@ -40,7 +40,7 @@ public class ConversationController {
     }
 
     /**
-     * Get the conversation with specific Id
+     * 🌟Get the conversation with specific Id 🌟
      **/
     @GetMapping("/conversations/{conversationId}")
     public Conversation getConversation(@PathVariable String conversationId) {
@@ -49,7 +49,7 @@ public class ConversationController {
     }
 
     /**
-     * Sending message to specified profile with conversationId
+     * 🌟Sending message to specified profile with conversationId 🌟
      **/
     @PostMapping("/conversations/{conversationId}")
     public Conversation addMessageToConversation(@PathVariable String conversationId, @RequestBody ChatMessages chatMessages) {
